@@ -1,1 +1,6 @@
 2025-09-21 16:54:30 - Cliente: {"ok":true}
+2025-09-21 21:26:17 - Cliente: {"ok":true}
+2025-09-21 21:40:24 - Cliente: {"ok":true}
+2025-09-21 21:47:19 - Cliente: {"ok":true}
+2025-09-21 21:48:54 - Cliente: {"ok":true}
+2025-09-21 21:49:53 - Cliente: {"ok":true}

@@ -493,7 +493,7 @@ async function reservarCita(){
 
         const respuestaJson = await respuesta.json();
 
-        if (respuestaJson.resultado) {
+        if (respuestaJson.resultado && respuestaJson.resultado.resultado) {
             Swal.fire({
                 title: `<strong>Cita creada correctamente</strong>`,
                 html: `

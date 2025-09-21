@@ -4,7 +4,7 @@
 // ---------------------------
 // Suprimir Deprecated y mostrar solo errores críticos
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
-ini_set('display_errors', 1);           // No mostrar errores en pantalla
+ini_set('display_errors', 0);           // No mostrar errores en pantalla
 ini_set('log_errors', 1);               // Registrar errores en log
 ini_set('error_log', __DIR__ . '/../logs/error.log'); // Ruta al log
 
