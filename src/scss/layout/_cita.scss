@@ -2,16 +2,109 @@
 @use "base/mixins" as m;
 @use 'sass:color';
 
-.seccion{
-    padding: 5rem 0;
-    display: none;
-    .text-center{
-        text-align: center;
+.citas, .servicios{
+    list-style: none;
+    padding: 0;
+    li{
+        @include m.glass-effect(v.$glass-bg, v.$glass-border, v.$glass-shadow);
+        &{
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            @include m.tablet {
+                padding: 1rem 4rem;
+            }
+        }
+        p{
+            font-weight: v.$regular;
+            color: v.$azul;
+            font-size: 1.6rem;
+            @include m.tablet {
+                font-size: 2rem;
+            }
+        }
+        span{
+            color: v.$blanco;
+        }
+        .servicio{
+            font-weight: v.$regular;
+            color: v.$blanco;
+        }
     }
 }
-.mostrar{
+// Sección oculta o mostrada
+.seccion {
+    padding: 0;
+    display: none;
+    .text-center {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 2rem;
+    }
+}
+
+.titulo-seccion{
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 0;
+        border: none;
+        font-weight: v.$bold;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 6rem;
+        @include m.glass-effect(v.$glass-bg, v.$glass-border, v.$glass-shadow);
+        z-index: 120;
+        img {
+            margin-right: 1rem;
+            width: 2rem;
+            height: 2rem;
+        }
+        p{
+            color: v.$gris-claro;
+        }
+    }
+
+.mostrar {
+    button {
+        margin: 1rem auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        padding: 2rem;
+        background-color: rgba(13, 166, 243, 0.6);
+        color: v.$blanco;
+        border: 2px solid rgba(13, 166, 243, 1);
+        border-radius: 8px;
+        font-weight: v.$black;
+        transition: background-color 0.2s, transform 0.1s;
+        &:hover {
+            cursor: pointer;
+            background-color: color.adjust(v.$azul, $lightness: -10%);
+            transform: scale(1.02);
+        }
+        &:active {
+            transform: scale(0.98);
+        }
+        img {
+            margin-right: 1rem;
+            width: 2rem;
+            height: 2rem;
+        }
+    }
     display: block;
 }
-.ocultar{
+
+.ocultar {
     display: none;
+}
+
+.contenido-resumen{
+    .boton{
+        margin: 3rem auto;
+    }
 }

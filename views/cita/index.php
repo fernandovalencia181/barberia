@@ -1,44 +1,63 @@
-<h1 class="nombre-pagina">Crear Nueva Cita</h1>
-<p class="descripcion-pagina">Elige tus servicios y coloca tus datos</p>
-
-<?php include_once __DIR__ . "/../templates/barra.php" ?>
+<?php include_once __DIR__ . "/../templates/menu.php" ?>
 
 <div id="app">
-    <nav class="tabs">
-        <button class="actual" type="button" data-paso="1">Servicios</button>
-        <button type="button" data-paso="2">Información Cita</button>
-        <button type="button" data-paso="3">Resumen</button>
-    </nav>
-
     <div id="paso-1" class="seccion">
-        <h2>Servicios</h2>
-        <p class="text-center">Elige tus servicios a continuación</p>
+        <div class="titulo-seccion" type="button" data-paso="1">
+            <img src="/build/img/razor-electric.svg"/>
+            <p>Servicios</p>
+        </div>
+
+        <h3 >Elige tus servicios a continuación</h3>
         <div id="servicios" class="listado-servicios"></div>
     </div>
     <div id="paso-2" class="seccion">
-        <h2>Tus Datos y Cita</h2>
-        <p class="text-center">Coloca tus datos y fecha de ayuda</p>
+        <div class="titulo-seccion" data-paso="2">
+            <img src="/build/img/calendar-plus.svg"/>
+            <p>Información de Cita</p>
+        </div>
+
+        <h3>Elija un Barbero, Día y Hora</h3>
         <form class="formulario">
-            <div class="campo">
+
+            <div class="campo" id="seleccionar-barbero">
+                <label for="barbero">Barbero:</label>
+                <select id="barbero">
+                    <option value="">-- Selecciona un barbero --</option>
+                </select>
+            </div>
+
+            <div id="calendario"></div>
+
+            <div id="horarios-container" class="horarios-grid"></div>
+
+            <div class="campo ocultar">
                 <label for="nombre">Nombre</label>
                 <input id="nombre" type="text" placeholder="Tu Nombre" value="<?php echo $nombre; ?>" disabled>
             </div>
 
-            <div class="campo">
+            <div class="campo ocultar">
                 <label for="fecha">Fecha</label>
-                <input id="fecha" type="date" min="<?php echo date("Y-m-d",strtotime("+1 day")); ?>">
+                <input id="fecha" type="date" min="<?php echo date("Y-m-d",strtotime("+1 day")); ?>" disabled>
             </div>
 
-            <div class="campo">
+            <div class="campo ocultar">
                 <label for="hora">Hora</label>
-                <input id="hora" type="time">
+                <input id="hora" type="time" disabled>
             </div>
+
             <input type="hidden" id="id" value="<?php echo $id; ?>">
         </form>
     </div>
-    <div id="paso-3" class="seccion contenido-resumen">
-        <h2>Resumen</h2>
-        <p class="text-center">Verifica que la información sea correcta</p>
+    <div id="paso-3" class="seccion">
+        <div class="titulo-seccion" data-paso="3">
+            <img src="/build/img/list-check.svg"/>
+            <p>Resumen</p>
+        </div>
+
+        <h3>Verifica que la información sea correcta</h3>
+
+        <input type="hidden" id="csrf_token" name="csrf_token" value="<?php echo generarTokenCSRF(); ?>">
+        <div class="contenido-resumen"></div>
     </div>
 
     <div class="paginacion">
@@ -49,9 +68,10 @@
     </div>
 </div>
 
+
 <?php
-    $script="
-        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-        <script src='build/js/app.js'></script>
-    ";
+    $script = '
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="build/js/app-copy.js"></script>
+    ';
 ?>

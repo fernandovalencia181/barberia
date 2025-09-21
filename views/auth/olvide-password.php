@@ -9,7 +9,8 @@
         <input type="email" id="email" name="email" placeholder="Tu E-mail">
     </div>
     
-    <input type="submit" class="boton" value="Enviar Instrucciones">
+    <input type="hidden" name="csrf_token" value="<?php echo generarTokenCSRF(); ?>">
+    <input type="submit" class="boton sesion" value="Enviar Instrucciones">
 </form>
 
 <div class="acciones">

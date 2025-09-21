@@ -2,33 +2,47 @@
 @use "base/mixins" as m;
 @use 'sass:color';
 
-.citas{
-    list-style: none;
-    padding: 0;
-    li{
+.resumen-barberos,
+.bloqueo-card,
+.contenido-resumen{
+    @include m.glass-effect(v.$glass-bg, v.$glass-border, v.$glass-shadow);
+    &{
         padding: 1rem;
-        border-top: 1px solid v.$blanco;
-        p{
-            font-weight: v.$bold;
-            color: v.$azul;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        @include m.tablet {
+            padding: 1rem 4rem;
         }
-        span{
-            color: v.$blanco;
+    }
+    p{
+        font-weight: v.$bold;
+        color: v.$azul;
+        font-size: 1.6rem;
+        @include m.tablet {
+            font-size: 2rem;
         }
-        .servicio{
-            font-weight: v.$regular;
-            color: v.$blanco;
-        }
+    }
+    span{
+        color: v.$blanco;
+    }
+    hr{
+        margin-bottom: 3rem;
     }
 }
 
-.servicios{
-    @extend .citas;
-    .acciones{
-        margin: 0;
-    }
-    .boton,
-    .boton-eliminar{
-        margin: 0;
-    }
-}
+// .servicios, .acciones{
+//     @extend .citas;
+//     .acciones{
+//         margin: 0;
+//         width: 100%;
+//     }
+//     .boton,
+//     .boton-eliminar{
+//         margin: 0;
+//         width: 100%;
+//         @include m.tablet {
+//             width: 50%;
+//         }
+//     }
+// }
+

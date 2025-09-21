@@ -3,8 +3,60 @@
 @use 'sass:color';
 
 .boton{
-    @include m.boton(v.$azul, v.$blanco);
+    @include m.boton(v.$azul, v.$blanco); // 0.5 = semitransparente
+    @include m.tablet {
+        width: 50%;
+    }
 }
 .boton-eliminar{
     @include m.boton(v.$rojo, v.$blanco);
+    @include m.tablet {
+        width: 50%;
+    }
+}
+.seleccionar-archivo {
+    // ocultar el texto de "Ningún archivo seleccionado"
+    color: transparent;
+
+    &::file-selector-button {
+        padding: 1rem 2rem;
+        background-color: transparent;
+        border-radius: 8px;
+        border: 2px solid v.$azul;
+        box-shadow: 0 0 5px v.$azul;
+        color: v.$azul;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    &::file-selector-button:hover {
+        background-color: v.$azul;
+        color: v.$blanco;
+    }
+}
+
+.floating-btn{
+    position: fixed;
+    bottom: 2rem;     /* separación desde abajo */
+    right: 2rem;      /* separación desde la derecha */
+    width: 5rem;
+    height: 5rem;
+    background: rgba(0,0,0,0.3); /* negro semitransparente */
+    color: white;
+    font-size: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.2s ease-in-out;
+    z-index: 10;
+    @include m.tablet {
+        width: 6rem;
+        height: 6rem;
+    }
+    &:hover{
+        background-color: color.scale(v.$gris-claro, $lightness: -90%);
+    }
 }

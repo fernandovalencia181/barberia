@@ -1,0 +1,41 @@
+@use "base/variables" as v;
+@use "base/mixins" as m;
+@use 'sass:color';
+
+.margin-top{
+    margin-top: 2rem;
+}
+
+// Encabezado de sección
+.titulo-seccion {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: v.$fuente_principal;
+    font-weight: v.$bold;
+    color: v.$azul;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    img {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+// Mensajes de estado
+.mensaje-no-horarios {
+    grid-column: 1 / -1;
+    color: v.$blanco;
+    font-weight: v.$bold;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.6rem;
+    background-color: color.adjust(v.$rojo, $lightness: -10%);
+    border-radius: 0.5rem;
+    @include m.tablet {
+        font-size: 2rem;
+    }
+}
+
+

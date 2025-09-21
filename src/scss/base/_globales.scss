@@ -16,15 +16,20 @@ body {
     font-size: 1.6rem;
     @include m.tablet{
         height: 100%;
+        font-size: 2rem;
     }
 }
 *, *:before, *:after {
     box-sizing: inherit;
 }
 .contenedor {
+    position: relative;
     width: 95%;
     max-width: 1200px;
     margin: 0 auto;
+    @include m.tablet {
+            padding-bottom: 3rem;
+    }
 }
 a {
     text-decoration: none;

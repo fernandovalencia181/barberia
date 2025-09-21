@@ -3,9 +3,8 @@
 @use 'sass:color';
 
 .tabs{
-    @include m.tablet{
-        display: flex;
-    }
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     button{
         background-color: v.$azul;
         border: none;
@@ -17,13 +16,18 @@
         text-transform: uppercase;
         font-weight: v.$bold;
         transition: background-color 300ms ease;
+        p{
+            font-size: 1rem;
+        }
         &:hover{
             cursor: pointer;
             background-color: color.adjust(v.$azul, $lightness: -10%);
         }
         &.actual{
             background-color: v.$blanco;
-            color: v.$azul;
+            p{
+                color: v.$azul;
+            }
         }
     }
 }

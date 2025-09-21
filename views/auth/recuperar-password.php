@@ -7,8 +7,14 @@
 <form class="formulario" method="POST">
     <div class="campo">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Tu Nuevo Password">
+        <input type="password" id="password" name="password" placeholder="Tu Nuevo Password" autocomplete="new-password">
     </div>
+    <div class="campo">
+        <label for="password2">Repetir Password</label>
+        <input type="password" id="password2" name="password2" placeholder="Repite tu Password" autocomplete="new-password">
+    </div>
+
+    <input type="hidden" name="csrf_token" value="<?php echo generarTokenCSRF(); ?>">
     <input type="submit" class="boton" value="Guardar Nuevo Password">
 </form>
 

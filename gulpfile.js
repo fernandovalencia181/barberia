@@ -1,77 +1,95 @@
-import path from 'path'
-import fs from 'fs'
-import { glob } from 'glob'
-import { src, dest, watch, series } from 'gulp'
-import * as dartSass from 'sass'
-import gulpSass from 'gulp-sass'
-import terser from 'gulp-terser'
-import sharp from 'sharp'
+import path from 'path';
+import fs from 'fs';
+import { glob } from 'glob';
+import { src, dest, watch, series, parallel } from 'gulp';
+import * as dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+import terser from 'gulp-terser';
+import sharp from 'sharp';
+import { deleteAsync } from 'del';
+import rev from 'gulp-rev'; // Para cache busting
 
-const sass = gulpSass(dartSass)
+const sass = gulpSass(dartSass);
 
 const paths = {
     scss: 'src/scss/**/*.scss',
-    js: 'src/js/**/*.js'
+    js: 'src/js/**/*.js',
+    img: 'src/img/**/*'
+};
+
+// ---------------------------
+// Limpiar build
+// ---------------------------
+export function limpiar() {
+    return deleteAsync(['./public/build/**', '!./public/build']);
 }
 
-export function css( done ) {
-    src(paths.scss, {sourcemaps: true})
-        .pipe( sass({
-            outputStyle: 'compressed'
-        }).on('error', sass.logError) )
-        .pipe( dest('./public/build/css', {sourcemaps: '.'}) );
-    done()
+// ---------------------------
+// CSS
+// ---------------------------
+export function css() {
+    return src(paths.scss, { sourcemaps: process.env.NODE_ENV !== 'production' })
+        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+        .pipe(process.env.NODE_ENV === 'production' ? rev() : dest('./public/build/css', { sourcemaps: '.' }))
+        .pipe(dest('./public/build/css', { sourcemaps: process.env.NODE_ENV !== 'production' }));
 }
 
-export function js( done ) {
-    src(paths.js)
-    .pipe(terser())
-    .pipe(dest('./public/build/js'))
-    done()
+// ---------------------------
+// JS
+// ---------------------------
+export function js() {
+    let stream = src(paths.js);
+    stream = stream.pipe(terser());
+    if (process.env.NODE_ENV === 'production') {
+        stream = stream.pipe(rev());
+    }
+    return stream.pipe(dest('./public/build/js'));
 }
 
-export async function imagenes(done) {
+// ---------------------------
+// Imágenes
+// ---------------------------
+async function procesarImagen(file, outputSubDir) {
+    if (!fs.existsSync(outputSubDir)) fs.mkdirSync(outputSubDir, { recursive: true });
+
+    const baseName = path.basename(file, path.extname(file));
+    const extName = path.extname(file).toLowerCase();
+
+    if (extName === '.svg') {
+        fs.copyFileSync(file, path.join(outputSubDir, `${baseName}${extName}`));
+    } else {
+        const options = { quality: 80 };
+        await Promise.all([
+            sharp(file).jpeg(options).toFile(path.join(outputSubDir, `${baseName}${extName}`)),
+            sharp(file).webp(options).toFile(path.join(outputSubDir, `${baseName}.webp`)),
+            sharp(file).avif().toFile(path.join(outputSubDir, `${baseName}.avif`))
+        ]);
+    }
+}
+
+export async function imagenes() {
     const srcDir = './src/img';
     const buildDir = './public/build/img';
-    const images =  await glob('./src/img/**/*')
+    const files = await glob(paths.img);
 
-    images.forEach(file => {
+    await Promise.all(files.map(file => {
         const relativePath = path.relative(srcDir, path.dirname(file));
         const outputSubDir = path.join(buildDir, relativePath);
-        procesarImagenes(file, outputSubDir);
-    });
-    done();
+        return procesarImagen(file, outputSubDir);
+    }));
 }
 
-function procesarImagenes(file, outputSubDir) {
-    if (!fs.existsSync(outputSubDir)) {
-        fs.mkdirSync(outputSubDir, { recursive: true })
-    }
-    const baseName = path.basename(file, path.extname(file))
-    const extName = path.extname(file)
-
-    if (extName.toLowerCase() === '.svg') {
-        // If it's an SVG file, move it to the output directory
-        const outputFile = path.join(outputSubDir, `${baseName}${extName}`);
-    fs.copyFileSync(file, outputFile);
-    } else {
-        // For other image formats, process them with sharp
-        const outputFile = path.join(outputSubDir, `${baseName}${extName}`);
-        const outputFileWebp = path.join(outputSubDir, `${baseName}.webp`);
-        const outputFileAvif = path.join(outputSubDir, `${baseName}.avif`);
-        const options = { quality: 80 };
-
-        sharp(file).jpeg(options).toFile(outputFile);
-        sharp(file).webp(options).toFile(outputFileWebp);
-        sharp(file).avif().toFile(outputFileAvif);
-    }
-}
-
+// ---------------------------
+// Watch (solo desarrollo)
+// ---------------------------
 export function dev() {
-    watch( paths.scss, css );
-    watch( paths.js, js );
-    watch('src/img/**/*.{png,jpg}', imagenes)
+    watch(paths.scss, css);
+    watch(paths.js, js);
+    watch(paths.img, imagenes);
 }
 
-export default series( js, css, imagenes, dev );
-export const build = series(js, css, imagenes);
+// ---------------------------
+// Tareas
+// ---------------------------
+export const build = series(limpiar, parallel(js, css, imagenes));
+export default series(build, dev);

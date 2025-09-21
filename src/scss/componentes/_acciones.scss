@@ -4,15 +4,53 @@
 
 .acciones{
     margin-top: v.$separacion;
-    @include m.tablet{
-        display: flex;
+    &.servicios{
+        margin-top: 2rem;
+    }
+    &:last-child{
+        margin-top: 1rem;
+    }
+    // @include m.tablet{
+        @include m.grid(2,1);
         justify-content: space-between;
         align-items: center;
+        justify-items: center;
+        &.continue{
+            a{
+                grid-column: 1 / span 3; // Hijo directo del grid
+            }
+        }
+    // }
+    form {
+        width: 100%; // que ocupe toda la celda
+        display: flex; // para centrar su input
+        justify-content: center;
     }
     a{
         color: v.$blanco;
         display: block;
-        margin-bottom: 2.5rem;
-        text-align: center;
+        // margin-bottom: 2.5rem;
+        text-align: center;            
+        &:hover {
+            color: v.$azul;
+        }
+    }
+    &.continue{
+        margin-top: 3rem;
+        a{
+            width: 100%;
+            margin: 0;
+            padding: 1rem 2rem;
+            background-color: transparent;
+            border-radius: 8px;
+            border: 2px solid v.$azul;
+            box-shadow: 0 0 5px v.$azul;
+            font-weight: v.$bold;
+            transition: background-color 0.2s, transform 0.1s;
+            color: v.$azul;
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
 }

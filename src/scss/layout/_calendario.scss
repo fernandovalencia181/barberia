@@ -1,0 +1,117 @@
+@use "base/variables" as v;
+@use "base/mixins" as m;
+@use 'sass:color';
+
+#calendario {
+    margin: 0 auto;
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 100%;
+    height: 40rem;
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10%);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+    color: white;
+    overflow: visible !important;
+    @include m.tablet {
+        width: 70rem;
+    }
+}
+
+.dia-deshabilitado {
+    background-color: #f5f5f5 !important;
+    color: #bbb !important;
+    pointer-events: none; /* evita clics */
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+/* Fechas habilitadas */
+.habilitado {
+    cursor: pointer;
+}
+
+// .fc-toolbar-chunk:first-child .fc-button-group .fc-button, .fc-toolbar-chunk:first-child>.fc-button{
+//     background-color: v.$azul;
+// }
+.fc-daygrid-day-number {
+    display: inline-flex;       /* para poder centrar */
+    justify-content: center;
+    align-items: center;
+    width: 3rem;              /* mismo ancho */
+    height: 3rem;             /* mismo alto */
+    line-height: 2.2rem;
+    border-radius: 50%;         /* círculo */
+    @include m.tablet {
+        width: 4rem;              /* mismo ancho */
+        height: 4rem;             /* mismo alto */
+        line-height: 3.2rem;
+    }
+}
+
+.fc-daygrid-day.fc-day-selected .fc-daygrid-day-number {
+    background-color: color.adjust(v.$azul, $lightness: -20%);
+    color: v.$blanco;
+}
+
+.fc-button-group {
+    z-index: 1 !important;
+    position: relative; /* si no tiene posición, asignarle para que el z-index funcione */
+}
+
+.fc .fc-button-primary{
+    background-color: v.$azul !important;
+    &:disabled{
+        background-color: v.$azul !important;
+    }
+    &:hover{
+        cursor: pointer;
+        background-color: color.adjust(v.$azul, $lightness: -10%) !important;
+    }
+}
+/* El título del mes */
+.fc-toolbar-title {
+    text-align: center;
+    width: 100%;
+    color: v.$blanco;
+    font-weight: 700;
+    font-size: 2.4rem !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+    @include m.tablet {
+        font-size: 3rem !important;
+    }
+}
+/* Quitar bordes y fondos de casi todo el calendario */
+.fc, 
+.fc * {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+/* Opcional: evitar scroll visible */
+.fc .fc-scroller,
+.fc .fc-scroller-harness {
+    overflow: visible !important;
+}
+
+.fecha-seleccionada .fc-daygrid-day-number {
+    background-color: v.$azul !important;
+    color: white !important;
+    border-radius: 30%;
+}
+.fc-daygrid-day-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fc-daygrid-day-events {
+    display: none !important;
+}
+
+.fc-col-header {
+    margin-bottom: 2rem;            /* margen para separar del contenido */
+}

@@ -17,28 +17,29 @@
         @content;
     }
 }
-
+@mixin desktop-xl {
+    @media (min-width: v.$desktop-xl) {
+        @content;
+    }
+}
 
 @mixin boton($bgColor, $colorTexto) {
     background-color: $bgColor;
-    padding: 1.5rem 4rem;
+    padding: 1rem 0;
     color: $colorTexto;
     margin-top: 2rem;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 400;
     display: inline-block;
-    font-weight: 700;
     border: none;
     transition-property: background-color;
     transition-duration: .3s;
     text-align: center;
-    display: block;
     width: 100%;
-    margin: 5rem 0;
+    margin: 0;
     border-radius: 1rem;
-
-    @include tablet {
-        width: auto;
+    @include tablet{
+        font-size: 2rem;
     }
     &:hover {
         background-color: color.adjust($bgColor, $lightness: -10%);
@@ -50,4 +51,13 @@
     display: grid;
     gap: $espaciado;
     grid-template-columns: repeat($columnas, 1fr);
+}
+
+@mixin glass-effect($bgColor,$border,$shadow) {
+    padding: env(safe-area-inset-top, 20px) 20px 20px 20px; /* padding superior con soporte para notch */
+    background-color: $bgColor;
+    backdrop-filter: blur(v.$glass-blur);
+    -webkit-backdrop-filter: blur(v.$glass-blur);
+    border-bottom: 1px solid $border;
+    box-shadow: $shadow;
 }

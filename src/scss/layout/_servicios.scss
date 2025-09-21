@@ -3,28 +3,31 @@
 @use 'sass:color';
 
 .listado-servicios{
+    position: relative;
     display: grid;
-    gap: 2rem;
+    gap: 2rem;    
     @include m.tablet{
         @include m.grid(2,2rem);
     }
     .servicio{
-        background-color: v.$blanco;
-        padding: 3rem;
+        background-color: transparent;
+        border: 2px solid v.$azul;
+        padding: 1rem;
         border-radius: 1rem;
+        box-shadow: 0 0 5px v.$azul;
         transition: transform 300ms;
         text-align: center;
         &.seleccionado{
             background-color: v.$azul;
             p{
-                color: v.$blanco;
+                color: v.$negro;
             }
         }
         &:hover{
-            transform: scale(1.1);
+            transform: scale(1.04);
         }
         p{
-            color: v.$negro;
+            color: v.$azul;
             margin: 0 0 1.25rem 0;
         }
         .precio-servicio{

@@ -1,8 +1,10 @@
-<h1 class="nombre-pagina">Servicios</h1>
-<p class="descripcion-pagina">Administración de Servicios</p>
+<div class="titulo-seccion">
+    <img src="/build/img/blade.svg"/>
+    <p>Servicios</p>
+</div>
 
 <?php 
-    include_once __DIR__ . "/../templates/barra.php"; 
+    include_once __DIR__ . "/../templates/menu.php"; 
 ?>
 
 <ul class="servicios">
@@ -16,8 +18,8 @@
 
                 <form action="/servicios/eliminar" method="POST">
                     <input type="hidden" name="id" value="<?php echo $servicio->id; ?>">
-
-                    <input type="submit" value="Borrar" class="boton-eliminar">
+                    <input type="hidden" name="csrf_token" value="<?php echo generarTokenCSRF(); ?>">
+                    <input type="button" value="Borrar" class="boton-eliminar">
                 </form>
             </div>
         </li>

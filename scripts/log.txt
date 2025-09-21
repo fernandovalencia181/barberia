@@ -1,0 +1,9 @@
+Script iniciado a 2025-09-21 17:47:05
+Recordatorio enviado a correo2@correo.com: OK
+Script finalizado a 2025-09-21 17:47:05
+Script iniciado a 2025-09-21 18:01:20
+Recordatorio enviado a correo2@correo.com: OK
+Script finalizado a 2025-09-21 18:01:20
+Script iniciado a 2025-09-21 19:01:20
+Recordatorio enviado a correo2@correo.com: OK
+Script finalizado a 2025-09-21 19:01:21

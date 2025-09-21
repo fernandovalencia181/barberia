@@ -1,12 +1,18 @@
 @use "base/variables" as v;
 @use "base/mixins" as m;
 @use 'sass:color';
+@use "sass:math";
 
 .paginacion{
-    padding: v.$separacion 0;
-    @include m.telefono{
-        display: flex;
-        justify-content: space-between;
+    margin-top: 5rem;
+    padding: math.div(v.$separacion,4) 0;
+    display: flex;
+    justify-content: space-between;
+    @include m.tablet{
+        margin-top: 6rem;        
+    }
+    .boton{
+        @include m.boton(v.$azul, v.$negro);
     }
     button{
         margin: 0 0 1rem 0;

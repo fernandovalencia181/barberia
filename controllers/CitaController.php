@@ -6,13 +6,13 @@ use MVC\Router;
 
 class CitaController{
     public static function index(Router $router){
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        iniciarSesion();
         isAuth();
+        $nombre = $_SESSION["nombre"];
+
         $router->render("cita/index",[
-            "nombre"=>$_SESSION["nombre"],
-            "id"=>$_SESSION["id"]
+            "nombre" => $nombre,
+            "id" => $_SESSION["id"]
         ]);
     }
 }

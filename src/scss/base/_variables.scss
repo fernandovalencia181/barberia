@@ -1,19 +1,27 @@
 // Fuentes
-$fuente_principal: 'Poppins', sans-serif;
+// $fuente_principal: 'Montserrat', sans-serif;
+// $fuente_principal: 'Playfair Display', serif;
+$fuente_principal: 'Inter', sans-serif;
 
 // Tamaño de Media Queries
 $telefono: 480px;
 $tablet: 768px;
 $desktop: 1024px;
+$desktop-xl: 1200px;
 
 // Colores
-$azul: #0da6f3;
+// $azul: #0da6f3;
+$azul: rgba(13, 166, 243, 0.5);
+$azul-puro: rgb(13, 166, 243);
 $rojo: #cb0000;
+$amarillo: #ffff00;
+$rojo-semitransparente: rgba(255, 0, 0, 0.4);
 $verde:#329f00;
-$negro: #1a1b15;
+$negro: rgba(0, 0, 0, 0.95);
 
 $blanco: #FFFFFF;
 $gris: #e1e1e1;
+$gris-claro: #767c8c;
 
 $separacion: 5rem;
 
@@ -21,4 +29,12 @@ $separacion: 5rem;
 $delgada: 300;
 $regular : 400;
 $bold: 700;
-$black: 900
+$black: 900;
+
+// Efecto Glassmorphism
+$glass-blur: 1rem;
+$glass-bg: rgba(255, 255, 255, 0.05);
+$input: rgba(13, 166, 243, 0.15);
+$glass-bg-dark: rgba(0, 0, 0, 0);
+$glass-border: rgba(255, 255, 255, 0.1);
+$glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);

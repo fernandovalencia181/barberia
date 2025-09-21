@@ -1,0 +1,72 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+@use 'sass:color';
+
+.menu {
+    position: absolute;
+    top: 10rem;
+    right: 0rem;
+    width: 20rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    z-index: 110;
+    color: v.$blanco;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    pointer-events: none;
+    @include m.glass-effect(v.$glass-bg, v.$glass-border, v.$glass-shadow);
+    ul {
+        list-style: none;
+        padding: 0;
+        li {
+        margin: 0.5rem 0;
+            a {
+                color: v.$blanco;
+                font-weight: v.$delgada;
+                text-decoration: none;
+                padding: 0.5rem;
+                display: block;
+                border-radius: 5px;
+                &:hover {
+                background-color: rgba(255, 255, 255, 0.2);
+                }
+            }
+            &:last-child a {
+                color: v.$rojo; // texto rojo
+                font-weight: v.$bold;
+                &:hover {
+                    background-color: rgba(255, 0, 0, 0.2); // hover rojo semi-transparente
+                }
+            }
+        }
+    }
+    &.show-menu {
+        max-height: 15rem; // Asegurate de que sea más que suficiente para tu contenido
+        opacity: 1;
+        pointer-events: auto;
+        @include m.tablet {
+            max-height: 18rem;
+        }
+    }
+    a.activo {
+        background: color.adjust(v.$azul, $lightness: -20%);
+        color: v.$blanco; // color destacado
+    }
+}
+
+#menu-admin{
+    &.show-menu {
+        max-height: 25rem; // Asegurate de que sea más que suficiente para tu contenido
+        opacity: 1;
+        pointer-events: auto;
+        @include m.tablet {
+            max-height: 30rem;
+            width: 21rem;
+        }
+    }
+}
+
+
+

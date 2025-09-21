@@ -20,14 +20,19 @@
     </div>
     <div class="campo">
         <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" placeholder="Tu E-mail" value="<?php echo s($usuario->email) ?>">
+        <input type="email" id="email" name="email" placeholder="Tu E-mail" value="<?php echo s($usuario->email) ?>" autocomplete="email">
     </div>
     <div class="campo">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Tu Password">
+        <input type="password" id="password" name="password" placeholder="Tu Password" autocomplete="new-password">
+    </div>
+    <div class="campo">
+        <label for="password2">Repetir Password</label>
+        <input type="password" id="password2" name="password2" placeholder="Repite tu Password" autocomplete="new-password">
     </div>
 
-    <input type="submit" value="Crear Cuenta" class="boton">
+    <input type="hidden" name="csrf_token" value="<?php echo generarTokenCSRF(); ?>">
+    <input type="submit" value="Crear Cuenta" class="boton sesion">
 </form>
 
 <div class="acciones">

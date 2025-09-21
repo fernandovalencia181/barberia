@@ -7,15 +7,97 @@
     color: v.$blanco;
     width: 100%;
     display: block;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     text-align: center;
     font-weight: v.$bold;
+    font-size: 1.2rem;
     text-transform: uppercase;
     border-radius: 0.5rem;
+    @include m.tablet {
+        font-size: 1.6rem;
+    }
     &.error{
-        background-color: v.$rojo;
+        background-color: color.adjust(v.$rojo, $lightness: -15%);
     }
     &.exito{
         background-color: v.$verde;
     }
+}
+
+#paso-1{
+    .alerta{
+        position: absolute;
+        bottom: -5rem;
+        left: 0;
+        @include m.tablet{
+            bottom: -6rem;
+        }
+    }
+}
+
+#paso-2{
+    .alerta{
+        position: absolute;
+        bottom: -4.5rem;
+        left: 0;
+        @include m.tablet{
+            bottom: -6rem;
+        }
+    }
+}
+
+/* Contenedor de la alerta global */
+.alerta-global {
+    @include m.glass-effect(v.$glass-bg, v.$glass-border, v.$glass-shadow);
+    &{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 1.5rem 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        z-index: 110;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+    }
+    p {
+        margin-bottom: 1.5rem;
+        font-size: 1.6rem;
+        @include m.tablet {
+            font-size: 2rem;
+        }
+    }
+    .boton-confirmar {
+        width: 100%;
+        background-color: #007bff;
+        color: #fff;
+        &:hover {
+            background-color: #0056b3;
+        }
+    }
+
+    .boton-cancelar {
+        width: 100%;
+        background-color: #ccc;
+        color: #333;
+        &:hover {
+            background-color: #999;
+        }
+    }
+}
+
+/* Overlay opcional detrás de la alerta */
+.alerta-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
 }

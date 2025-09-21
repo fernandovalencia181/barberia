@@ -19,6 +19,9 @@
     ],
     "require": {
         "phpmailer/phpmailer": "^6.10",
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "google/apiclient": "2.13",
+        "sendinblue/api-v3-sdk": "^8.4",
+        "getbrevo/brevo-php": "^2.0"
     }
 }
