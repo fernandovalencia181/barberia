@@ -25,7 +25,7 @@ class LoginController {
 
                 if ($usuario) {
                     if ($usuario->comprobarPasswordAndVerificado($auth->password)) {
-                        session_start();
+                        iniciarSesion();
                         $_SESSION["id"] = $usuario->id;
                         $_SESSION["nombre"] = $usuario->nombre . " " . $usuario->apellido;
                         $_SESSION["email"] = $usuario->email;
@@ -292,7 +292,7 @@ class LoginController {
         }
 
         // Crear sesión
-        session_start();
+        iniciarSesion();
         $_SESSION["id"] = $usuario->id;
         $_SESSION["nombre"] = $usuario->nombre . " " . $usuario->apellido;
         $_SESSION["email"] = $usuario->email;
@@ -310,9 +310,7 @@ class LoginController {
     }
 
     public static function agregarPassword(Router $router) {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        iniciarSesion();
         if (!$_SESSION["login"]) {
             header("Location: /");
             exit;
