@@ -4,7 +4,7 @@
 // ---------------------------
 // Suprimir Deprecated y mostrar solo errores críticos
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
-ini_set('display_errors', 1); // 1 en desarrollo, 0 en producción
+ini_set('display_errors', 0); // 1 en desarrollo, 0 en producción
 
 // Crear carpeta logs si no existe
 $logDir = __DIR__ . '/../logs';
