@@ -4,9 +4,17 @@
 // ---------------------------
 // Suprimir Deprecated y mostrar solo errores críticos
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
-ini_set('display_errors', 0);           // No mostrar errores en pantalla
-ini_set('log_errors', 1);               // Registrar errores en log
-ini_set('error_log', __DIR__ . '/../logs/error.log'); // Ruta al log
+ini_set('display_errors', 1); // 1 en desarrollo, 0 en producción
+
+// Crear carpeta logs si no existe
+$logDir = __DIR__ . '/../logs';
+if (!is_dir($logDir)) {
+    mkdir($logDir, 0755, true);
+}
+
+// Definir archivo de log
+ini_set('log_errors', 1);
+ini_set('error_log', $logDir . '/error.log');
 
 // ---------------------------
 // Cargar dependencias
