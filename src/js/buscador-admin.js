@@ -72,7 +72,9 @@ function ymdLocal(date) {
 
 async function cargarCitasAdmin(fecha) {
     try {
-        const response = await fetch(`/api/admin/citas?fecha=${fecha}`);
+        const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+        
+        const response = await fetch(`/api/admin/citas?fecha=${fecha}&csrf_token=${csrfToken}`);
         if (!response.ok) throw new Error('Error al obtener citas');
         const citas = await response.json();
 
@@ -114,7 +116,7 @@ async function cargarCitasAdmin(fecha) {
                     <div class="acciones servicios">
                         <form action="/api/eliminar" method="POST">
                             <input type="hidden" name="id" value="${citaItem.id}">
-                            <input type="hidden" name="csrf_token" value="<?= generarTokenCSRF() ?>">
+                            <input type="hidden" name="csrf_token" value="${csrfToken}">
                             <input type="submit" class="boton-eliminar" value="Eliminar">
                         </form>
                         <button class="btn-actualizar-hora boton" 
@@ -206,7 +208,7 @@ async function mostrarHorariosDisponibles(fecha, barberoId, citaId, contenedor){
 
         const duracionMinutos = 40;
 
-        generarRangoHorarios(8, 20, 13, 20, duracionMinutos, horariosOcupados, contenedor);
+        generarRangoHorarios(8, 40, 13, 20, duracionMinutos, horariosOcupados, contenedor);
         generarRangoHorarios(15, 20, 19, 20, duracionMinutos, horariosOcupados, contenedor);
 
         const btnGuardar = document.createElement('button');
@@ -262,6 +264,7 @@ function generarRangoHorarios(inicioHora, inicioMinuto, finHora, finMinuto, dura
 // -------------------- ACTUALIZAR HORA --------------------
 async function actualizarHoraCita(citaId, nuevaHora){
     try{
+        const csrfToken = document.querySelector('input[name="csrf_token"]').value;
         const response = await fetch(`/api/citas/actualizar-hora`, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
@@ -344,32 +347,32 @@ function confirmar(mensaje, tipo, mostrarBotones=false, form=null) {
     document.body.appendChild(overlay);
 }
 
-contenedor.addEventListener('click', async e => {
-    if (e.target.classList.contains('boton-eliminar')) {
-        e.preventDefault();
-        const form = e.target.closest('form');
-        confirmar("¿Seguro que deseas eliminar esta cita?", "warning", true, form);
-    }
+    contenedor.addEventListener('click', async e => {
+        if (e.target.classList.contains('boton-eliminar')) {
+            e.preventDefault();
+            const form = e.target.closest('form');
+            confirmar("¿Seguro que deseas eliminar esta cita?", "warning", true, form);
+        }
 
-    if (e.target.classList.contains('btn-actualizar-hora')) {
-        const btn = e.target;
-        const li = btn.closest('li');
-        const horariosGrid = li.querySelector('.horarios-grid');
+        if (e.target.classList.contains('btn-actualizar-hora')) {
+            const btn = e.target;
+            const li = btn.closest('li');
+            const horariosGrid = li.querySelector('.horarios-grid');
 
-        if (horariosGrid.classList.contains('visible')) {
-            horariosGrid.classList.remove('visible');
-            btn.textContent = 'Cambiar Hora';
-        } else {
-            horariosGrid.classList.add('visible');
-            btn.textContent = 'Contraer';
+            if (horariosGrid.classList.contains('visible')) {
+                horariosGrid.classList.remove('visible');
+                btn.textContent = 'Cambiar Hora';
+            } else {
+                horariosGrid.classList.add('visible');
+                btn.textContent = 'Contraer';
 
-            if (!horariosGrid.hasChildNodes()) {
-                const citaId = btn.dataset.citaId;
-                const barberoId = btn.dataset.barberoId;
-                const fecha = btn.dataset.fecha;
-                await mostrarHorariosDisponibles(fecha, barberoId, citaId, horariosGrid);
+                if (!horariosGrid.hasChildNodes()) {
+                    const citaId = btn.dataset.citaId;
+                    const barberoId = btn.dataset.barberoId;
+                    const fecha = btn.dataset.fecha;
+                    await mostrarHorariosDisponibles(fecha, barberoId, citaId, horariosGrid);
+                }
             }
         }
-    }
 });
 

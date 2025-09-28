@@ -12,7 +12,14 @@
         margin-top: 6rem;        
     }
     .boton{
-        @include m.boton(v.$azul, v.$negro);
+        @include m.boton(v.$dorado, v.$negro);
+        &{
+            min-width: 12rem; // ✅ evita que queden demasiado chicos
+            font-weight: v.$bold;
+            letter-spacing: 0.05rem;
+            transition: all 0.2s ease-in-out;
+        }
+
     }
     button{
         margin: 0 0 1rem 0;

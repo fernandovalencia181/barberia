@@ -289,7 +289,7 @@ function paginaSiguiente(){
             const datosIncompletos = Object.values(cita).includes("") || cita.servicios.length === 0;
             // console.log(cita);
             if (datosIncompletos) {
-                mostrarAlerta("Completa todos los campos antes de continuar", "error", ".formulario", true);
+                mostrarAlerta("Completa todos los campos", "error", ".formulario", true);
                 return;
             }
         }

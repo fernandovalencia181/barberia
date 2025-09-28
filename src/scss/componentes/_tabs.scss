@@ -6,7 +6,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     button{
-        background-color: v.$azul;
+        background-color: v.$dorado;
         border: none;
         color: v.$blanco;
         padding: 1rem;
@@ -21,12 +21,12 @@
         }
         &:hover{
             cursor: pointer;
-            background-color: color.adjust(v.$azul, $lightness: -10%);
+            background-color: color.adjust(v.$dorado, $lightness: -10%);
         }
         &.actual{
             background-color: v.$blanco;
             p{
-                color: v.$azul;
+                color: v.$dorado;
             }
         }
     }

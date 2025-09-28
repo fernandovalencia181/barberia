@@ -29,9 +29,9 @@
 }
 
 .enlace{
-    color: v.$azul;
+    color: v.$dorado;
     &:hover{
-        color: color.adjust(v.$azul, $lightness: -20%);;
+        color: color.adjust(v.$dorado, $lightness: -20%);;
     }
 }
 
@@ -42,6 +42,7 @@
     align-items: center;
     margin: 0 auto;
     margin-top: 7rem;
+    margin-bottom: 1rem;
     p{
         color: v.$gris-claro;
     }
@@ -55,9 +56,13 @@
             width: 30%;
         }
     }
+
+    .logo-link img {
+        height: 50px; // ajustalo al tamaño de tu logo
+        width: auto;
+    }
     .menu-icon{
         cursor: pointer;
-        margin-left: auto; 
     }
 }
 
@@ -78,9 +83,31 @@
     }
 }
 
-.boton{
-    &.sesion{
+.boton {
+    &.sesion {
         width: 100%;
+        padding: 1.4rem 2rem;
+        border: none;
+        border-radius: 0.8rem;
+        background: v.$dorado;
+        color: v.$negro;
+        font-size: 1.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+    }
+}
+
+.logo-login {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    img {
+        width: 120px;   // ajustá según el tamaño real de tu logo
+        height: auto;
+        border-radius: 8px; // opcional si querés esquinas suaves
     }
 }
 

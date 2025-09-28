@@ -2,49 +2,56 @@
 @use "base/mixins" as m;
 @use 'sass:color';
 
-.alerta{
-    padding: 1.25rem;
-    color: v.$blanco;
+.alerta {
+    padding: 1.25rem 1.5rem;
     width: 100%;
     display: block;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
     text-align: center;
     font-weight: v.$bold;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     text-transform: uppercase;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
+    color: v.$blanco;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    opacity: 0.95;
+
     @include m.tablet {
         font-size: 1.6rem;
     }
-    &.error{
+
+    &.error {
         background-color: color.adjust(v.$rojo, $lightness: -15%);
+        border-left: 4px solid v.$rojo;
     }
-    &.exito{
-        background-color: v.$verde;
+
+    &.exito {
+        background-color: color.adjust(v.$verde, $lightness: -5%);
+        border-left: 4px solid v.$verde;
+    }
+
+    &:hover {
+        opacity: 1;
+        transform: translateY(-2px);
     }
 }
 
-#paso-1{
-    .alerta{
+#paso-1,
+#paso-2 {
+    .alerta {
         position: absolute;
-        bottom: -5rem;
-        left: 0;
-        @include m.tablet{
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 0;
+        bottom: -5.5rem;
+
+        @include m.tablet {
             bottom: -6rem;
         }
     }
 }
 
-#paso-2{
-    .alerta{
-        position: absolute;
-        bottom: -4.5rem;
-        left: 0;
-        @include m.tablet{
-            bottom: -6rem;
-        }
-    }
-}
 
 /* Contenedor de la alerta global */
 .alerta-global {

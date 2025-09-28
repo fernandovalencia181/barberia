@@ -17,7 +17,7 @@
         }
         p{
             font-weight: v.$regular;
-            color: v.$azul;
+            color: v.$dorado;
             font-size: 1.6rem;
             @include m.tablet {
                 font-size: 2rem;
@@ -65,6 +65,7 @@
         }
         p{
             color: v.$gris-claro;
+            margin-top: 1rem;
         }
     }
 
@@ -76,15 +77,15 @@
         justify-content: center;
         width: 50%;
         padding: 2rem;
-        background-color: rgba(13, 166, 243, 0.6);
+        background-color: rgba(218, 165, 32, 0.6);
         color: v.$blanco;
-        border: 2px solid rgba(13, 166, 243, 1);
+        border: 2px solid rgba(218, 165, 32, 1);
         border-radius: 8px;
         font-weight: v.$black;
         transition: background-color 0.2s, transform 0.1s;
         &:hover {
             cursor: pointer;
-            background-color: color.adjust(v.$azul, $lightness: -10%);
+            background-color: color.adjust(v.$dorado, $lightness: -10%);
             transform: scale(1.02);
         }
         &:active {

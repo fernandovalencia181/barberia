@@ -17,7 +17,8 @@
                     echo "</li>";
                 endif;
                 echo "<li>";
-                echo "<p><strong>Fecha:</strong> <span>{$cita->fecha}</span></p>";
+                $fechaFormateada = date("d-m-Y", strtotime($cita->fecha));
+                echo "<p><strong>Fecha:</strong> <span>{$fechaFormateada}</span></p>";
                 echo "<p><strong>Hora:</strong> <span>" . substr($cita->hora, 0, 5) . "</span></p>";
                 echo "<p><strong>Barbero:</strong> <span>{$cita->barbero}</span></p>";
                 echo "<h3>Servicios</h3>";

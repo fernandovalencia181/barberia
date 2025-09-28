@@ -232,10 +232,13 @@ class LoginController {
     }
 
     public static function googleLogin() {
-        $client = new Client();
+        $host = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}";
+        $redirectUri = $host . '/google-callback';
+
+        $client = new \Google_Client();
         $client->setClientId($_ENV['GOOGLE_CLIENT_ID']);
         $client->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
-        $client->setRedirectUri($_ENV['GOOGLE_REDIRECT_URI']);
+        $client->setRedirectUri($redirectUri); // dinámico según el dominio
         $client->addScope("email");
         $client->addScope("profile");
 
@@ -244,13 +247,16 @@ class LoginController {
     }
 
     public static function googleCallback() {
+        $host = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}";
+        $redirectUri = $host . '/google-callback';
+
         $client = new \Google_Client();
         $client->setClientId($_ENV['GOOGLE_CLIENT_ID']);
         $client->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
-        $client->setRedirectUri($_ENV['GOOGLE_REDIRECT_URI']);
+        $client->setRedirectUri($redirectUri);
 
-        // Agrega esta línea para desarrollo local
-        //$client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
+        // Opcional: para desarrollo local
+        // $client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
 
         if (!isset($_GET['code'])) {
             $auth_url = $client->createAuthUrl();
@@ -263,6 +269,7 @@ class LoginController {
 
         $oauth = new Oauth2($client);
         $googleUser = $oauth->userinfo->get();
+
         /** @var \Model\Usuario|null $usuario */
         $usuario = Usuario::findBy(["email" => strtolower($googleUser->email)]);
 
@@ -272,7 +279,7 @@ class LoginController {
             $usuario->nombre = $googleUser->givenName;
             $usuario->apellido = $googleUser->familyName;
             $usuario->email = $googleUser->email;
-            $usuario->confirmado = "1"; // ya confirmado por Google
+            $usuario->confirmado = "1"; // confirmado por Google
             $usuario->google_id = $googleUser->id;
             $usuario->rol = "cliente";
             $usuario->guardar();
@@ -284,7 +291,7 @@ class LoginController {
             }
         }
 
-        // Crear sesión como en login normal
+        // Crear sesión
         session_start();
         $_SESSION["id"] = $usuario->id;
         $_SESSION["nombre"] = $usuario->nombre . " " . $usuario->apellido;
@@ -292,9 +299,8 @@ class LoginController {
         $_SESSION["login"] = true;
         $_SESSION["rol"] = $usuario->rol;
 
-        // Verificar si tiene contraseña
+        // Verificar contraseña
         if (empty($usuario->password)) {
-            // Redirigir a agregar contraseña
             header("Location: /agregar-password");
             exit;
         }

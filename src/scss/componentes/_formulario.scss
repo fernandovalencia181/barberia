@@ -25,37 +25,54 @@
     // Botones de horarios seleccionables
     .boton-horario {
         width: 100%;
-        background-color: transparent;
-        color: v.$azul;
-        border: 2px solid v.$azul;
-        padding: 0.7rem 1rem;
-        border-radius: 5px;
+        background: transparent;
+        color: v.$dorado;
+        border: 2px solid v.$dorado;
+        padding: 0.9rem 1.2rem;
+        border-radius: 0.8rem;
         font-weight: 600;
+        font-size: 1.4rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
         cursor: pointer;
-        transition: background-color 0.2s ease;
         text-align: center;
+
+        transition: 
+            background-color 0.25s ease,
+            color 0.25s ease,
+            transform 0.2s ease,
+            box-shadow 0.25s ease;
+
         &:hover {
-            transform: scale(1.04);
-            background-color: transparent;
+            transform: translateY(-2px) scale(1.03);
+            background-color: rgba(v.$dorado, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
+
         &.seleccionado {
-            background-color: v.$azul;
+            background-color: v.$dorado;
             color: v.$negro;
+            box-shadow: 0 4px 10px rgba(v.$dorado, 0.5);
         }
+
         &.ocupado {
-            background-color: #555; /* gris oscuro */
+            background-color: #444;
             border: none;
-            color: #ccc; /* texto más claro */
+            color: #aaa;
             cursor: not-allowed;
-            opacity: 0.8;
-            box-shadow: none;
+            opacity: 0.7;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+            text-decoration: line-through;
         }
 
         &:disabled {
-        filter: brightness(60%);
-        cursor: not-allowed;
+            filter: brightness(70%);
+            cursor: not-allowed;
+            opacity: 0.6;
+            box-shadow: none;
         }
     }
+
     .alerta{
         position: absolute;
         bottom: -10rem;
@@ -73,84 +90,121 @@
     margin: 2.5rem auto;
 }
 
-.campo{
+.campo {
     position: relative;
     display: flex;
-    margin: 3rem 0;
-    // margin-bottom: 2rem;
-    align-items: center;
-    &.ocultar{
+    flex-direction: column;
+    margin: 2.5rem 0;
+    align-items: flex-start;
+    gap: 1rem;
+
+    &.ocultar {
         display: none;
     }
-    label{
-        flex: 0 0 10rem;
+
+    label {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: v.$blanco;
     }
-    input,select{
-        flex: 1;
-        min-width: 0;  // permitir que el input se encoja dentro del flex container
+
+    input,
+    select {
+        width: 100%;
+        min-width: 0;
+        padding: 1.2rem 1.5rem;
         border: none;
-        padding: 1.25rem;
-        border-radius: 1rem;
+        border-radius: 0.8rem;
         background: v.$input;
         color: v.$blanco;
-        &:disabled{
+        font-size: 1.5rem;
+        line-height: 1.4;
+        transition: all 0.2s ease;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(v.$dorado, 0.4);
+        }
+
+        &:disabled {
             background-color: color.adjust(v.$negro, $lightness: 30%);
             color: v.$blanco;
             cursor: not-allowed;
         }
     }
-    // 👇 Solo en campos con input file
+
+    // Estilos especiales para campos con input file
     &:has(input[type="file"]) {
-    display: flex;
-    flex-direction: row;    // label e input al lado
-    align-items: center;
-    flex-wrap: wrap;        // permite que la imagen baje
-
-    label {
-        flex: 0 0 auto;
-        margin-right: 6rem;
-    }
-
-    input[type="file"] {
-        flex: 1;
-        min-width: 0;
-        background: transparent;
-        color: transparent;
-    }
-
-    .preview-img {
-        object-fit: cover;
-        border-radius: 4px;
-        border: 2px solid #ccc;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-        transition: transform 0.2s ease;
-
-        flex: 0 0 100%;   // 👈 fuerza a bajar debajo del input+label
-        margin-top: 1rem;
-    }
-
-    @include m.tablet {
-        flex-wrap: nowrap;         // ya no se baja
         flex-direction: row;
         align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+
+        label {
+            flex: 0 0 auto;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        input[type="file"] {
+            flex: 1;
+            background: transparent;
+            color: transparent;
+            cursor: pointer;
+        }
 
         .preview-img {
-            width: 20rem;
-            height: 20rem;
-            flex: 0 0 auto;        // vuelve a colocarse al costado
-            margin-top: 0;
-            margin-left: 1rem;
+            object-fit: cover;
+            border-radius: 0.8rem;
+            border: 2px solid #ccc;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+            flex: 0 0 100%;
+            margin-top: 1rem;
+
+            &:hover {
+                transform: scale(1.03);
+            }
+        }
+    }
+
+    // Responsive para pantallas grandes
+    @include m.tablet {
+        flex-direction: row;
+        align-items: center;
+        gap: 2rem;
+
+        label {
+            flex: 0 0 12rem;
+            text-align: left;
+        }
+
+        input,
+        select {
+            flex: 1;
+            font-size: 1.6rem;
+            padding: 1.4rem 1.6rem;
+        }
+
+        &:has(input[type="file"]) {
+            flex-wrap: nowrap;
+
+            .preview-img {
+                width: 22rem;
+                height: 22rem;
+                flex: 0 0 auto;
+                margin: 0 0 0 1.5rem;
+            }
         }
     }
 }
 
-}
 
 .custom-select {
     width: 100%;
     position: relative;
     z-index: 90;
-    background: rgba(13, 166, 243, 0.4);
+    background: rgba(218, 165, 32, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     backdrop-filter: blur(10px);
@@ -170,7 +224,7 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background: rgba(13, 166, 243);;
+    background: rgba(218, 165, 32);
     backdrop-filter: blur(12px);
     border-radius: 12px;
     overflow: hidden;

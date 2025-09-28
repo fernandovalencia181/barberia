@@ -4,7 +4,7 @@
 
 #calendario {
     margin: 0 auto;
-    margin-top: 1rem;
+    margin-bottom: 2rem;
     width: 100%;
     max-width: 100%;
     height: 40rem;
@@ -45,6 +45,8 @@
     height: 3rem;             /* mismo alto */
     line-height: 2.2rem;
     border-radius: 50%;         /* círculo */
+    color: v.$blanco;
+    cursor: pointer;
     @include m.tablet {
         width: 4rem;              /* mismo ancho */
         height: 4rem;             /* mismo alto */
@@ -53,7 +55,7 @@
 }
 
 .fc-daygrid-day.fc-day-selected .fc-daygrid-day-number {
-    background-color: color.adjust(v.$azul, $lightness: -20%);
+    background-color: color.adjust(v.$dorado, $lightness: -20%);
     color: v.$blanco;
 }
 
@@ -63,13 +65,13 @@
 }
 
 .fc .fc-button-primary{
-    background-color: v.$azul !important;
+    background-color: v.$dorado !important;
     &:disabled{
-        background-color: v.$azul !important;
+        background-color: v.$dorado !important;
     }
     &:hover{
         cursor: pointer;
-        background-color: color.adjust(v.$azul, $lightness: -10%) !important;
+        background-color: color.adjust(v.$dorado, $lightness: -10%) !important;
     }
 }
 /* El título del mes */
@@ -98,7 +100,7 @@
 }
 
 .fecha-seleccionada .fc-daygrid-day-number {
-    background-color: v.$azul !important;
+    background-color: v.$dorado !important;
     color: white !important;
     border-radius: 30%;
 }
@@ -114,4 +116,8 @@
 
 .fc-col-header {
     margin-bottom: 2rem;            /* margen para separar del contenido */
+}
+
+.fc-col-header-cell-cushion{
+    color: v.$blanco;
 }

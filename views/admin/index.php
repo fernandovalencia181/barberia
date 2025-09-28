@@ -18,7 +18,7 @@
 </div>
 
 
-
+<input type="hidden" name="csrf_token" value="<?php echo generarTokenCSRF(); ?>">
 <div id="citas-admin"></div>
 
 <a href="#resumen-barberos" class="floating-btn" id="scrollBtn">

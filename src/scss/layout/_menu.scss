@@ -1,72 +1,81 @@
-@use 'base/variables' as v;
-@use 'base/mixins' as m;
+@use "base/variables" as v;
+@use "base/mixins" as m;
 @use 'sass:color';
 
 .menu {
     position: absolute;
     top: 10rem;
-    right: 0rem;
+    right: 0;
     width: 20rem;
-    padding: 1rem;
-    border-radius: 1rem;
+    padding: 1.5rem;
+    border-radius: 1.2rem;
     z-index: 110;
     color: v.$blanco;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
-    transition: max-height 0.4s ease, opacity 0.3s ease;
+    transform: translateY(-10px);
+    transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
+
     @include m.glass-effect(v.$glass-bg, v.$glass-border, v.$glass-shadow);
+
     ul {
         list-style: none;
         padding: 0;
+        margin: 0;
+
         li {
-        margin: 0.5rem 0;
+            margin: 0.8rem 0;
+
             a {
                 color: v.$blanco;
-                font-weight: v.$delgada;
+                font-weight: v.$regular;
                 text-decoration: none;
-                padding: 0.5rem;
+                padding: 0.8rem 1rem;
                 display: block;
-                border-radius: 5px;
+                border-radius: 0.6rem;
+                font-size: 1.4rem;
+                letter-spacing: 0.03rem;
+                transition: background-color 0.25s ease, transform 0.15s ease;
+
                 &:hover {
-                background-color: rgba(255, 255, 255, 0.2);
+                    background-color: rgba(255, 255, 255, 0.15);
+                    transform: translateX(4px);
                 }
             }
+
             &:last-child a {
-                color: v.$rojo; // texto rojo
+                color: v.$rojo;
                 font-weight: v.$bold;
+
                 &:hover {
-                    background-color: rgba(255, 0, 0, 0.2); // hover rojo semi-transparente
+                    background-color: rgba(255, 0, 0, 0.15);
                 }
             }
         }
     }
+
     &.show-menu {
-        max-height: 15rem; // Asegurate de que sea más que suficiente para tu contenido
+        max-height: 19rem;
         opacity: 1;
+        transform: translateY(0);
         pointer-events: auto;
-        @include m.tablet {
-            max-height: 18rem;
-        }
     }
+
     a.activo {
-        background: color.adjust(v.$azul, $lightness: -20%);
-        color: v.$blanco; // color destacado
+        background: color.adjust(v.$dorado, $lightness: -15%);
+        color: v.$blanco;
+        font-weight: v.$bold;
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.25);
     }
 }
 
-#menu-admin{
+#menu-admin {
     &.show-menu {
-        max-height: 25rem; // Asegurate de que sea más que suficiente para tu contenido
+        max-height: 32rem;
         opacity: 1;
+        transform: translateY(0);
         pointer-events: auto;
-        @include m.tablet {
-            max-height: 30rem;
-            width: 21rem;
-        }
     }
 }
-
-
-

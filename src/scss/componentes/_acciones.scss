@@ -2,55 +2,81 @@
 @use "base/mixins" as m;
 @use 'sass:color';
 
-.acciones{
-    margin-top: v.$separacion;
-    &.servicios{
+.acciones {
+    margin-top: 2.5rem;
+
+    &.servicios {
         margin-top: 2rem;
     }
-    &:last-child{
+
+    &:last-child {
         margin-top: 1rem;
     }
-    // @include m.tablet{
-        @include m.grid(2,1);
-        justify-content: space-between;
-        align-items: center;
-        justify-items: center;
-        &.continue{
-            a{
-                grid-column: 1 / span 3; // Hijo directo del grid
-            }
+
+    // @include m.grid(2, 1);
+    justify-content: space-between;
+    justify-items: center;
+    gap: 1.5rem;
+
+    &.continue {
+        a {
+            grid-column: 1 / -1; // ocupa todo el ancho
         }
-    // }
+    }
+
     form {
-        width: 100%; // que ocupe toda la celda
-        display: flex; // para centrar su input
+        width: 100%;
+        display: flex;
         justify-content: center;
     }
-    a{
+
+    a {
         color: v.$blanco;
         display: block;
-        // margin-bottom: 2.5rem;
-        text-align: center;            
+        text-align: center;
+        font-weight: v.$bold;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        transition: all 0.2s ease-in-out;
+        text-decoration: none;
+
         &:hover {
-            color: v.$azul;
+            color: v.$dorado;
+            transform: translateY(-2px);
+        }
+
+        &:active {
+            transform: scale(0.97);
         }
     }
-    &.continue{
+
+    &.continue {
         margin-top: 3rem;
-        a{
+
+        a {
             width: 100%;
             margin: 0;
             padding: 1rem 2rem;
-            background-color: transparent;
+            background-color: v.$dorado;
             border-radius: 8px;
-            border: 2px solid v.$azul;
-            box-shadow: 0 0 5px v.$azul;
+            border: 2px solid v.$dorado;
+            box-shadow: 0 4px 10px rgba(218, 165, 32, 0.35);
             font-weight: v.$bold;
-            transition: background-color 0.2s, transform 0.1s;
-            color: v.$azul;
+            color: v.$negro;
+            transition: background-color 0.25s ease, transform 0.15s ease;
+
             &:hover {
+                background-color: color.adjust(v.$dorado, $lightness: -10%);
+                transform: scale(1.03);
                 cursor: pointer;
             }
+
+            &:active {
+                transform: scale(0.97);
+            }
         }
+    }
+    @include m.tablet {
+        @include m.grid(2, 1);
     }
 }

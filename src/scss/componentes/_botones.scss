@@ -3,13 +3,13 @@
 @use 'sass:color';
 
 .boton{
-    @include m.boton(v.$azul, v.$blanco); // 0.5 = semitransparente
+    @include m.boton(v.$dorado, v.$blanco); // 0.5 = semitransparente
     @include m.tablet {
         width: 50%;
     }
 }
 .boton-eliminar{
-    @include m.boton(v.$rojo, v.$blanco);
+    @include m.boton(v.$rojo-semitransparente, v.$blanco);
     @include m.tablet {
         width: 50%;
     }
@@ -22,15 +22,15 @@
         padding: 1rem 2rem;
         background-color: transparent;
         border-radius: 8px;
-        border: 2px solid v.$azul;
-        box-shadow: 0 0 5px v.$azul;
-        color: v.$azul;
+        border: 2px solid v.$dorado;
+        box-shadow: 0 0 5px v.$dorado;
+        color: v.$dorado;
         cursor: pointer;
         transition: all 0.2s ease;
     }
 
     &::file-selector-button:hover {
-        background-color: v.$azul;
+        background-color: v.$dorado;
         color: v.$blanco;
     }
 }
